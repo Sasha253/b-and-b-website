@@ -300,6 +300,6 @@ function App() {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyC-bx0QWYlhdUH5ErpCpeVvlb9cYm7rWdA'
+  apiKey: pass
 })(App);
 
