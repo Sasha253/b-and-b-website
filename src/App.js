@@ -1,11 +1,8 @@
 import React from 'react';
-import {Map , GoogleApiWrapper, InfoWindow, Marker} from 'google-maps-react';
-import {footerTheme, headerTheme} from './components/theme';
+import MapContainer from './components/map-container';
 import Homepage from './pages/home';
 import ContactPage from './pages/contact';
-import HotelBookingsPage from './pages/hotel-bookings';
-import SalesLongTermRentalsPage from './pages/sales-long-term-rentals';
-import ShortTermRentalsPage from './pages/short-term-rentals';
+import AccomodationPage from './pages/accomodation';
 import AboutPage from './pages/about';
 import ActivitiesPage from './pages/activities';
 import GalleryPage from './pages/gallery';
@@ -23,176 +20,92 @@ import {
   Fade, 
   MenuItem, 
   Menu, 
-  makeStyles, 
   ClickAwayListener, 
   Paper,
-
+  ButtonGroup,
+  Box,
+  Link,
 } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
-import { Theaters } from '@material-ui/icons';
+import { createMuiTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
+import EmailIcon from '@material-ui/icons/Email';
 
 const useStyles = makeStyles((theme) => ({
-  headerDetails: {
+  root: {
+    overflowX: "hidden",
+  }, 
+
+  header: {
     flexGrow: 1,
+  },
+
+  text: {
+    padding: "20px",
   },
 
   mainTitle: {
     flexGrow: 1,
   },
-
-  root: {
-    background: "#000000",
+  
+  container: {
+    padding: "20px 20px 20px 20px",
     color: "#FFFFFF"
-  }
+  },
+
+  map: {
+    position: "relative",
+  }, 
+  appbar : {
+    position: "sticky",
+  },
+
+  
 
 }));
 
-const mapStyles = {
-  width: '100',
-  height: '100'
-};
-
-function AccommodationDropdown(props) {
-
-  return (
-    <div>
-      <Menu
-        id="dropdown-menu"
-        anchor = {true}
-        keepMounted
-        open = {true}
-        TransitionComponent = {Fade}
-      >
-        <MenuItem> 
-          <Button>
-            HOTEL BOOKINGS
-          </Button>   
-        </MenuItem>
-        <MenuItem> 
-          <Button>
-            SHORT TERM RENTALS
-          </Button>
-        </MenuItem>
-        <MenuItem> 
-          <Button>
-            SALES & LONG TERM RENTALS
-          </Button>
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-}
-
-function ContactDropdown() {
-
-  return (
-    <div>
-      <Menu
-        id="dropdown-menu"
-        anchor = {true}
-        keepMounted
-        open = {true}
-        TransitionComponent = {Fade}
-      >
-        <MenuItem> 
-          <Button href = "/contact-us">
-            CONTACT US 
-          </Button>
-        </MenuItem>
-        <MenuItem> 
-          <Button href = "/privacy-policy">
-            PRIVACY POLICY
-          </Button> 
-        </MenuItem>
-        <MenuItem> 
-          <Button href = "/refund-policy ">
-            REFUND POLICY
-          </Button>
-        </MenuItem>
-      </Menu>
-    </div>
-  );
-}
-
-function MapContainer(props) {
-
-  const state = {
-    showingInfoWindow: false,
-    activeMarker: {},       
-    selectedPlace: {}       
-  };
-
-  const onMarkerClick = (props, marker, e) =>
-  this.setState({
-    selectedPlace: props,
-    activeMarker: marker,
-    showingInfoWindow: true
-  });
-
-  const onClose = props => {
-  if (this.state.showingInfoWindow) {
-    this.setState({
-      showingInfoWindow: false,
-      activeMarker: null
-    });
+const HeaderTypography = withStyles({
+  root: {
+    color: "#757575"
   }
-};
-    return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={
-          {
-            lat: -26.2884,
-            lng: 28.8233
-          }
-        }
-      > 
-      <Marker
-          onClick={this.onMarkerClick}
-          name={'The Ogle Point'}
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-      </Map>
-    );
-  }
+})(Typography);
 
 function App() {
-  const [openAccom, setOpenAccom] = React.useState(false);
-
-  const accomodationOnClick = () => {
-    setOpenAccom((prev) => !prev);
-  }
-  const accomodationClickAway = () => {
-    setOpenAccom(false);
-  };
-
-  const [openContact, setOpenContact] = React.useState(false);
-
-  const contactOnClick = () => {
-    setOpenContact((prev) => !prev);
-  }
-  const contactClickAway = () => {
-    setOpenContact(false);
-  };
 
   const classes = useStyles();
 
+  const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: "#757575" //grey
+        },
+        secondary: {
+          main: "#382f24" //darker grey
+        },
+        text: {
+          primary: "#000000",
+          secondary: "#FFFFFF",
+        },
+        footerBackground: {
+          main: "#000000"
+        },
+    }
+  });
+
+  const social_media_theme = createMuiTheme({
+    palette: {
+        text: {
+          primary: "#FFFFFF",
+        },
+    }
+  });
+
   return (
-    <div>
-      <ThemeProvider theme = {headerTheme}>
-        <AppBar color = "secondary" position = "static">
+    <div /* className = {classes.root} */>
+      <ThemeProvider theme = {theme}>
+        <AppBar color = "secondary" position = "relative">
           <Toolbar> 
-            <Typography className = {classes.headerDetails} variant = "h10">
+            <Typography className = {classes.header} variant = "h10">
               CALL: Number | emailaddress.co.za
             </Typography>
             <Button variant = "contained" color = "secondary" href = "/bookings">
@@ -200,106 +113,134 @@ function App() {
             </Button>
           </Toolbar>
         </AppBar>
-      </ThemeProvider>
-          <AppBar color = "primary" position = "sticky">
-            <Toolbar> 
+          <AppBar className = {classes.appbar} color = "text.seconsdary" >
+            <Toolbar > 
               <Typography className = {classes.mainTitle} variant = "h4">
                 The Ogle Point
               </Typography>
-                <Button href = "/">
-                  HOME
-                </Button>
-                <Button href = "/about-us">
-                  ABOUT
-                </Button>
-                <ClickAwayListener onClickAway = {accomodationClickAway}>
-                  <Button onClick = {accomodationOnClick} >
-                    {openAccom ? (
-                      <AccommodationDropdown />
-                    ) : null}
+                <ButtonGroup variant = "contained">
+                  <Button href = "/">
+                    HOME
+                  </Button>
+                  <Button href = "/about-us">
+                    ABOUT
+                  </Button>
+                  <Button href = "/accomodation">
                     ACCOMODATION
                   </Button>
-                </ClickAwayListener>
-                <Button href = "/gallery">
-                  GALLERY
-                </Button>
-                <Button href = "/activities">
-                  ACTIVITIES
-                </Button>
-                <ClickAwayListener onClickAway = {contactClickAway}>
-                  <Button onClick = {contactOnClick} >
-                    {openContact? (
-                      <ContactDropdown />
-                    ) : null}
+                  <Button href = "/gallery">
+                    GALLERY
+                  </Button>
+                  <Button href = "/activities">
+                    ACTIVITIES
+                  </Button>
+                  <Button href = "/contact-us">
                     CONTACT
                   </Button>
-                </ClickAwayListener>
+                </ButtonGroup>
             </Toolbar>
           </AppBar>
 
-        <Router>
-          <Switch>
-            <Route 
-              exact path = "/" component = {Homepage} />
-            <Route 
-              path = "/hotel-bookings" component = {HotelBookingsPage} />
+          <Router>
+            <Switch>
               <Route 
-              path = "/short-term-rentals" component = {ShortTermRentalsPage} />
+                exact path = "/" component = {Homepage} />
               <Route 
-              path = "/sales-long-term-rentals" component = {SalesLongTermRentalsPage} />
-            <Route 
-              path = "/contact-us" component = {ContactPage} />
-            <Route 
-              path = "/activities" component = {ActivitiesPage} />
-            <Route 
-              path = "/gallery" component = {GalleryPage} />
-            <Route 
-              path = "/about-us" component = {AboutPage} />    
-          </Switch>
-        </Router>
+                path = "/accomodation" component = {AccomodationPage} />
+              <Route 
+                path = "/contact-us" component = {ContactPage} />
+              <Route 
+                path = "/activities" component = {ActivitiesPage} />
+              <Route 
+                path = "/gallery" component = {GalleryPage} />
+              <Route 
+                path = "/about-us" component = {AboutPage} />    
+            </Switch>
+          </Router>
 
+        <Box height = "10px" bgcolor = "primary.main" />
+        <Box bgcolor = "footerBackground.main">            
+          <Grid align = "center" container spacing = {15}>
+            <Grid className = {classes.container} item xs = {4}>
+                <HeaderTypography variant = "subtitle2" paragraph> 
+                  FIND US
+                </HeaderTypography>
+                  <Grid className = {classes.map}>
+                    <MapContainer />
+                  </Grid>
 
-        <ThemeProvider theme = {footerTheme}>  
-          <Paper>              
-            <Grid className = {classes.root} align = "center" container spacing = {3}>
-              <Grid item xs = {4}>
-                  <Typography variant = "subtitle2" color = "textSecondary"> 
-                    FIND US
-                  </Typography>
-                    {/*<MapContainer />*/}
-              </Grid>
-              <Grid item xs = {4}>
-                <Typography variant = "subtitle2">
-                  CONTACT DETAILS
-                </Typography>
-                <Typography align = "left" variant = "body1">
-
-                  The Ogle Point
-
-                  Address
-
-                  Concierge Office: 000-000-000
-                  Concierge Cell: 000-000-000
-
-                  General: info@theoglepoint.co.za
-                  Hotel Reservations: bookings@theoglepoint.co.za
-                  Sales and Rentals: name@theoglepoint.co.za
-
-                </Typography>
-                
-              </Grid>
-              <Grid item xs = {4}>
-                <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJiBUX1pC4a7UfoYpjieOdyEgxR4TjjvJKtg&usqp=CAU"
-                      alt = "logo" />
-              </Grid>
             </Grid>
-          </Paper>
-        </ThemeProvider>
+            <Grid className = {classes.container} item xs = {4}>
+              <HeaderTypography variant = "subtitle2" paragraph>
+                CONTACT DETAILS
+              </HeaderTypography>
+              <Typography align = "left" variant = "body1">
+
+                The Ogle Point
+                <br />
+                Address
+                <br />
+                Concierge Office: 000-000-000
+                <br />
+                Concierge Cell: 000-000-000
+                <br />
+                General: info@theoglepoint.co.za
+                <br />
+                Hotel Reservations: bookings@theoglepoint.co.za
+                <br />
+                Sales and Rentals: name@theoglepoint.co.za
+
+              </Typography>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              
+            </Grid>
+            <Grid className = {classes.container} item xs = {4}>
+              <img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJiBUX1pC4a7UfoYpjieOdyEgxR4TjjvJKtg&usqp=CAU"
+                    alt = "logo" />
+            </Grid>
+          </Grid>
+        </Box>
+
+        <Box align = "center" className = {classes.text} bgcolor = "secondary.main">
+          <Typography style = {{fontSize: 10}} paragraph color = "text.secondary">
+          Muzinox Pty Ltd T/A One Hyde Park | Copyright 2020 | All Rights Reserved | Site by 
+          
+          <Link style = {{marginLeft: "5px", color: "rgba(255, 255, 255, 0.7)"}}  href = "https://onehydepark.co.za/accommodation/hotel-bookings/"> 
+            Sasha Muller 
+          </Link>
+          <br />
+          This website is hosted, controlled and operated from the Republic of South Africa and 
+            therefore governed by South African law and subject to 
+          <br />
+          the clause 18 of the Terms & Conditions you and One Hyde Park submit to the jurisdiction 
+          of the South African courts.
+          </Typography>
+
+          <ThemeProvider theme = {social_media_theme} >
+            <Button>
+              <FacebookIcon />
+            </Button>
+            <Button>
+              <InstagramIcon/>
+            </Button>
+            <Button>
+              <EmailIcon />
+            </Button>
+          </ThemeProvider>
+          
+        </Box>
+      </ThemeProvider>
     </div>
   );
 }
 
-export default GoogleApiWrapper({
-  apiKey: pass
-})(App);
+export default App;
 

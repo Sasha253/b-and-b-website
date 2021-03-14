@@ -6,20 +6,20 @@ import {
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme => ({
-    titleImage: {
+    titleMain: {
         position: 'relative',
         textAlign: 'center',
         color: 'white',
     },
 
-    titleImageText: {
+    titleText: {
         position: 'absolute',
         top: '50%',
         left: '40%',
     },
 
     titleImage: {
-        filter: "brightness(40%)",
+        filter: "brightness(50%)",
     },
 
     body: {
@@ -38,12 +38,12 @@ function AboutPage() {
 
     return(
         <Grid>
-            <Grid>
+            <Grid className = {classes.titleMain}>
                 <Grid className = {classes.titleImage}>
                     <img height = "400" width = "100%" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgpfhmZ1ey0VylJT5sdfxarD72JpUtHqfMnA&usqp=CAU"
                         alt = "the outdoors" />
                 </Grid>
-                <Grid className = {classes.titleImageText}>
+                <Grid className = {classes.titleText}>
                     <Typography  variant = "h4">
                         ABOUT THE OGLE POINT
                     </Typography>

@@ -1,5 +1,8 @@
 import React from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import '../App.css';
+import {HashLink} from 'react-router-hash-link';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 import {makeStyles} from '@material-ui/core/styles';
 import {
   Button,  
@@ -12,7 +15,7 @@ import {
   CardActionArea, 
   CardActions,
   Divider,
-  Link,
+  Link, 
 } from '@material-ui/core';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 //import Image from 'material-ui-image';
@@ -45,58 +48,42 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(10),
         margin: theme.spacing(5),
     },
+
+    dividerTextMargin: {
+        marginBottom: theme.spacing(3),
+    }
 }));
 
-const SLIDE_INFO = {
-    image1: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fcf.bstatic.com%2Fimages%2Fhotel%2Fmax1024x768%2F785%2F78581454.jpg&imgrefurl=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fza%2Fhunters-b-amp-b.html&tbnid=ftWvccbjTWFbJM&vet=12ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMygxegUIARCKAg..i&docid=Tlu15cAX5OTeTM&w=960&h=639&q=b%26b%20images&ved=2ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMygxegUIARCKAg', 
-    image2: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fexp.cdn-hotels.com%2Fhotels%2F43000000%2F42520000%2F42516800%2F42516778%2F807b8c79_z.jpg%3Fimpolicy%3Dfcrop%26w%3D500%26h%3D333%26q%3Dhigh&imgrefurl=https%3A%2F%2Fza.hotels.com%2Fho1361536896%2Fb-b-gerace-badolato-italy%2F&tbnid=Wy3hf9M9R8AvrM&vet=12ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg6egQIARA6..i&docid=juEhklRYGeLjyM&w=500&h=333&itg=1&q=b%26b%20images&ved=2ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg6egQIARA6', 
-    image3: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fstatic.wheretostay.co.za%2Fresources%2F0%2F3%2F6%2F03602%2F136037_xl.jpg&imgrefurl=https%3A%2F%2Fwww.wheretostay.co.za%2Fwestville-bed-and-breakfast-accommodation-westville-durban&tbnid=J3NxVrfqtPFUPM&vet=12ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg9egQIARBA..i&docid=_i9FnFh6Q66hZM&w=800&h=534&q=b%26b%20images&ved=2ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg9egQIARBA', 
-    image4: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.sara-lee.co.za%2Fwp-content%2Fuploads%2F2017%2F05%2FMatatiele-bed-and-breakfast-red-double-room.jpg&imgrefurl=https%3A%2F%2Fsara-lee.co.za%2F&tbnid=YJxYuem9QsCSWM&vet=12ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg7egQIARA8..i&docid=yQl0KqX0CkkTnM&w=1900&h=911&q=b%26b%20images&ved=2ahUKEwi3-ZODlpzvAhWC4oUKHa06AoUQMyg7egQIARA8'
-};
-
-function Arrow(props) {
-    const { direction, clickFunction } = props;
-    const icon = direction === 'left' ? <FaChevronLeft /> : <FaChevronRight />;
+function CarouselComponent(slides) {
 
     return (
-        <div onClick={clickFunction}>{icon}</div>  
-    );
-}
-
-function TitleCarousel(props) {
-    const image = props.content;
-
-    return (
-        <Grid>
-            <img height = '200' width = "100%" src = {image} alt = "room"/>
-        </Grid>
+        <div class="carousel-wrapper">
+            <Carousel infiniteLoop autoPlay showThumbs showArrows>
+                <div>
+                    <img height = "400px" src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFkruHHYeoCoTlziF5v0XSzIyB9WdUFG_kw&usqp=CAU' alt='travel image' />
+                </div>
+                <div>
+                    <img height = "400px"  src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFkruHHYeoCoTlziF5v0XSzIyB9WdUFG_kw&usqp=CAU' alt='travel image' />
+                </div>
+                <div>
+                    <img height = "400px"  src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFkruHHYeoCoTlziF5v0XSzIyB9WdUFG_kw&usqp=CAU' alt='travel image' />
+                </div>
+                <div>
+                    <img height = "400px" src = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyFkruHHYeoCoTlziF5v0XSzIyB9WdUFG_kw&usqp=CAU' alt='travel image' />
+                </div>
+            </Carousel>
+        </div>
     );
 }
 
 function Homepage() {
-    const classes = useStyles();
-
-    const [index, setIndex] = React.useState(0);
-    const image = SLIDE_INFO[0];
-    const numSlides = SLIDE_INFO.length;
-
-    const onArrowClick = (direction) => {
-        const increment = direction === 'left' ? -1 : 1;
-        const newIndex = (index + increment + numSlides) % numSlides;
-        setIndex(newIndex);
-    };
+    const classes = useStyles();   
 
     return (
         <Grid>
-            <Arrow
-                direction='left'
-                clickFunction={() => onArrowClick('left')}
-            />
-            <TitleCarousel content = {image} />
-            <Arrow
-                direction='right'
-                clickFunction={() => onArrowClick('right')}
-            />
+            <Grid className = {classes.slider}>
+                <CarouselComponent />
+            </Grid>
             <Typography className = {classes.title} variant = "h6">
                 WELCOME TO THE OGLE POINT
             </Typography>
@@ -148,86 +135,143 @@ function Homepage() {
             </Grid>
 
             <Grid className = {classes.cardRoot} container spacing = {3}>
-            <Grid align = "center" item xs = {4}>
-                <Card className = {classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                    className = {classes.cardImage}
-                    image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
-                    title = 'image photo'
-                    >                 
-                    </CardMedia>
-                    <CardContent>    
-                    <Typography variant = "h4">
-                        HOTEL BOOKINGS
-                    </Typography>
-                    <Typography variant = "body2">
-                        Prices: R1000 - R2000
-                    </Typography>
-                    <CardActions>
-                        <Button href = "accomodations" color = "default">
-                            View Rooms
-                        </Button>
-                    </CardActions>
-                    </CardContent>
-                </CardActionArea>
-                </Card>
-            </Grid>
+                <Grid align = "center" item xs = {4}>
+                    <Card className = {classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                        className = {classes.cardImage}
+                        image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
+                        title = 'image photo'
+                        >                 
+                        </CardMedia>
+                        <CardContent>    
+                        <Typography variant = "h5">
+                            PREMIUM ROOMS
+                        </Typography>
+                        <Typography variant = "body2" paragraph>
+                            Prices: R1000 - R2000
+                        </Typography>
+                            <Button href = "/accomodation/#premium-rooms" variant = "outlined">
+                                <HashLink to = "accomodation/#premium-room" style={{ textDecoration: 'none', color: "#212121" }}>
+                                    View Rooms 
+                                </HashLink>
+                            </Button>
+                        </CardContent>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
 
-            <Grid align = "center" item xs = {4}>
-            <Card className = {classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                    className = {classes.cardImage}
-                    image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
-                    title = 'image photo'
-                    >                 
-                    </CardMedia>
-                    <CardContent>
-                        <Typography variant = "h4">
-                        SALES & LONG TERM RENTALS
+                <Grid align = "center" item xs = {4}>
+                <Card className = {classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                        className = {classes.cardImage}
+                        image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
+                        title = 'image photo'
+                        >                 
+                        </CardMedia>
+                        <CardContent>
+                            <Typography variant = "h5">
+                            FAMILY ROOMS
+                            </Typography>
+                            <Typography variant = "body2" paragraph>
+                            Prices: R1000 - R2000
+                            </Typography>   
+                            <Button variant = "outlined">
+                                <HashLink to = "accomodation/#family-room" style={{ textDecoration: 'none', color: "#212121" }}>
+                                    View Rooms 
+                                </HashLink>
+                            </Button>
+                        </CardContent>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
+                
+                <Grid align = "center" item xs = {4}>
+                <Card className = {classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                        className = {classes.cardImage}
+                        image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
+                        title = 'image photo'
+                        >                 
+                        </CardMedia>
+                        <CardContent>
+                        <Typography variant = "h5">
+                            DELUXE ROOMS
                         </Typography>
-                        <Typography variant = "body2">
-                        Prices: R1000 - R2000
+                        <Typography variant = "body2" paragraph>
+                            Prices: R1000 - R2000
                         </Typography>
-                        <Button href = "accomodations" color = "default">
-                        View Rooms
+                        <Button href = "/accomodation" variant = "outlined" >
+                                <HashLink to = "accomodation/#deluxe-room" style={{ textDecoration: 'none', color: "#212121" }}>
+                                    View Rooms 
+                                </HashLink>
                         </Button>
-                    </CardContent>
-                </CardActionArea>
-                </Card>
-            </Grid>
-            
-            <Grid align = "center" item xs = {4}>
-            <Card className = {classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                    className = {classes.cardImage}
-                    image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
-                    title = 'image photo'
-                    >                 
-                    </CardMedia>
-                    <CardContent>
-                    <Typography variant = "h4">
-                        SHORT TERM, RENTALS
-                    </Typography>
-                    <Typography variant = "body2">
-                        Prices: R1000 - R2000
-                    </Typography>
-                    <Button href = "accomodations" color = "default">
-                        View Rooms
-                    </Button>
-                    </CardContent>
-                </CardActionArea>
-                </Card>
-            </Grid>
+                        </CardContent>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
+                <Grid align = "center" item xs = {6}>
+                    <Card className = {classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                        className = {classes.cardImage}
+                        image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
+                        title = 'image photo'
+                        >                 
+                        </CardMedia>
+                        <CardContent>    
+                        <Typography variant = "h5">
+                            STANDARD ROOMS
+                        </Typography>
+                        <Typography variant = "body2" paragraph>
+                            Prices: R1000 - R2000
+                        </Typography>
+                            <Button href = "/accomodation" variant = "outlined">
+                                <HashLink to = "accomodation/#standard-room" style={{ textDecoration: 'none', color: "#212121" }}>
+                                    View Rooms 
+                                </HashLink>
+                            </Button>
+                        </CardContent>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
+
+                <Grid align = "center" item xs = {6}>
+                <Card className = {classes.card}>
+                    <CardActionArea>
+                        <CardMedia
+                        className = {classes.cardImage}
+                        image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9dGsSW-6nYMRxO15fHuMfr8czlQaC_qOdcw&usqp=CAU'
+                        title = 'image photo'
+                        >                 
+                        </CardMedia>
+                        <CardContent>
+                            <Typography variant = "h5" >
+                            FULL HOUSE WITH A HOST
+                            </Typography>
+                            <Typography variant = "body2" paragraph>
+                            Prices: R1000 - R2000
+                            </Typography>
+                            <Button href = "/accomodation" variant = "outlined">
+                                <HashLink to = "accomodation/#full-house-host" style={{ textDecoration: 'none', color: "#212121" }}>
+                                    View Rooms 
+                                </HashLink>
+                            </Button>
+                        </CardContent>
+                    </CardActionArea>
+                    </Card>
+                </Grid>
             </Grid>
 
             <Divider variant = "middle" />
 
             <Grid align = "center">
                 <Button href = "pms online bookings">
+                    <Typography className = {classes.dividerTextMargin}>
                         PMS Online Bookings
+                    </Typography>
                 </Button>
             </Grid>
         </Grid>
